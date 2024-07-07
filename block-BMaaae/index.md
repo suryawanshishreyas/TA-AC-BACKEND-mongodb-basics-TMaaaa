@@ -1,6 +1,6 @@
 writeCode
 
-Write code to:-
+Write code here:-
 
 - create a database named `sports`.
   > > use sports

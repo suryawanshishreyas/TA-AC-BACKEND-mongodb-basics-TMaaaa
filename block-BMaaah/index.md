@@ -3,12 +3,18 @@ writeCode
 Write code to execute below expressions.
 
 1. Create a database named `blog`.
+   > > use blog
 2. Create a collection called 'articles'.
+   > > db.createCollection('articles')
 3. Insert multiple documents(at least 3) into articles. It should have fields
+   > > db.articles.insertMany([{name:'Shreyas'}, {age:27}, {email:'suryawanshishreyas@gmail.com'}])
 
 - title as string
+  > > db.articles.insertOne({title: 'Fullstack Web Developer'})
 - createdAt as date
+  > > db.articles.insertOne({createdAt:'8th July 2024'})
 - details as String
+  > > db.articles.insertOne({details: 'Committement'})
 - author as nested object
   - author should have
     - name
@@ -16,6 +22,17 @@ Write code to execute below expressions.
     - age
     - example author: {name: 'abc', email: 'abc@gmail', age: 25}
 - tags : Array of strings like ['html', 'css']
+
+> > db.articles.insertOne(
+> > {
+> > \_id:1,
+> > details:'Friend',  
+> >  author:{
+> > name:'Jay',
+> > email:'jaychoudari@gmail.com',
+> > age:22
+> > },
+> > tags:[html,css]})
 
 ```js
 // An article should look like in the database
@@ -33,25 +50,47 @@ Write code to execute below expressions.
 ```
 
 4. Find all the articles using `db.COLLECTION_NAME.find()`
+   > > db.articles.find({title:'Fullstack Web Developer'})
+   > > db.articles.find({createdAt:'8th July 2024'})
+   > > db.articles.find({details:'Committement'})
+   > > db.articles.find({\_id:1})
 5. Find a document using \_id field.
+   > > db.articles.find({\_id:1})
 6. 1. Find documents using title
+      > > db.articles.find({title:'Fullstack Web Developer'})
 7. 2. Find documents using author's name field.
+      > > db.articles.find({'author.name':'Jay'})
 8. Find document using a specific tag.
-
+   > > db.articles.find({tags:'html'})
 9. Update title of a document using its \_id field.
+   > > db.articles.update({\_id:1}, {details:'Best Friend'})
 10. Update a author's name using article's title.
+    > > db.articles.update({\_title:'Friendship'},{'author.name':'JayDraws'})
 11. rename details field to description from all articles in articles collection.
+    > > db.articles.update({\_id:1},{$rename:{'details':'description'}})
 12. Add additional tag in a specific document.
-
+    > > db.articles.update({\_id:1},{$push:{tags:['JavaScript']}})
 13. Update an article's title using $set and without $set.
+    > > db.articles.update({\_id:1},{$set:{title:'Bro'}})
+    > > db.articles.update({\_id:1},{
+    > > \_id:1,
+    > > author:{name:'Jay', email:'jaychodhary@gmail.com', age:22},
+    > > tags:['html' , 'css', 'JavaScript'],
+    > > title:'Bros',
+    > > description:'Best Friend'
+    > > })
 
 - Write the differences here ?
+  > > we have to write whole content without $set.
 
 13. find an article using title and increment it's auhtor's age by 5.
-
+    > > db.articles.updateOne({title:'Bro'}, {$inc:{"author.age":5}})
+    > > db.articles.insertOne({\_id:2})
 14. Delete a document using \_id field with `db.COLLECTION_NAME.remove()`.
 
-// Sample data
+    > > db.articles.remove({\_id:2})
+
+    > > // Sample data
 
 ```js
 db.users.insertMany([
@@ -168,6 +207,9 @@ db.users.insertMany([
 Insert above data into database to perform below queries:-
 
 - Find all males who play cricket.
+  > > db.Publishers.find({sports:'cricket'})
 - Update user with extra golf field in sports array whose name is "Steve Ortega".
+  > > db.Publishers.update({name:'Steve Ortega'},{$push:{sports:'golf'}})
 - Find all users who play either 'football' or 'cricket'.
+  > > db.Publishers.find({$or: {sports:['football'],['cricket']}})
 - Find all users whose name includes 'ri' in their name.

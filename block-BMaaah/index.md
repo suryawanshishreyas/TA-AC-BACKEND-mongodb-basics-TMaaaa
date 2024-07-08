@@ -204,7 +204,7 @@ db.users.insertMany([
 ]);
 ```
 
-Insert above data into database to perform below queries:-
+Insert above data into database to perform below queries below:-
 
 - Find all males who play cricket.
   > > db.Publishers.find({sports:'cricket'})
